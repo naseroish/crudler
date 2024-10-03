@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { StyleSheet } from "react-native";
 import Screen from "../layout/Screen";
 import intialModules from "../../data/modules.js";
@@ -5,12 +6,11 @@ import ModuleList from "../entity/modules/ModuleList.js";
 
 const ModuleListScreen = () => {
   // Initialisations ---------------------------------
-  let modules = intialModules;
   // State -------------------------------------------
+  const [modules, setModules] = useState(intialModules);
   // Handlers ----------------------------------------
   const handleDelete = (module) =>
-    (modules = modules.filter((m) => m.ModuleCode !== module.ModuleCode));
-
+    setModules(modules.filter((m) => m !== module));
   // View --------------------------------------------
   return (
     <Screen>
