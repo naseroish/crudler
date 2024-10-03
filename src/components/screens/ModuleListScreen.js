@@ -8,15 +8,9 @@ const ModuleListScreen = () => {
   let modules = intialModules;
   // State -------------------------------------------
   // Handlers ----------------------------------------
-  const handleDelete = (module) => {
-    modules = modules.filter((m) => {
-      if (m.ModuleID !== module.ModuleID) return true;
-      else return false;
-    });
-    console.log(
-      `After deleting ${module.ModuleCode}, the array of modules has length ${modules.length}`
-    );
-  };
+  const handleDelete = (module) =>
+    (modules = modules.filter((m) => m.ModuleCode !== module.ModuleCode));
+
   // View --------------------------------------------
   return (
     <Screen>
