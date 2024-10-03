@@ -5,13 +5,22 @@ import ModuleList from "../entity/modules/ModuleList.js";
 
 const ModuleListScreen = () => {
   // Initialisations ---------------------------------
-  const modules = intialModules;
+  let modules = intialModules;
   // State -------------------------------------------
   // Handlers ----------------------------------------
+  const handleDelete = (module) => {
+    modules = modules.filter((m) => {
+      if (m.ModuleID !== module.ModuleID) return true;
+      else return false;
+    });
+    console.log(
+      `After deleting ${module.ModuleCode}, the array of modules has length ${modules.length}`
+    );
+  };
   // View --------------------------------------------
   return (
     <Screen>
-      <ModuleList modules={modules} />
+      <ModuleList modules={modules} onSelect={handleDelete} />
     </Screen>
   );
 };

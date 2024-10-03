@@ -1,13 +1,12 @@
 import { StyleSheet, Text, View, Pressable } from "react-native";
 
-const ModuleItem = ({module}) => {
+const ModuleItem = ({module, onSelect}) => {
   // Initialisations ---------------------------------
   // State -------------------------------------------
   // Handlers ----------------------------------------
-  const handleSelect = () => alert(`Selected ${module.ModuleCode}`);
   // View --------------------------------------------
   return (
-    <Pressable key={module.ModuleCode} onPress={handleSelect}>
+    <Pressable key={module.ModuleCode} onPress={() => onSelect(module)}>
     <View style={styles.item}>
       <Text style={styles.text}>
         {module.ModuleCode} {module.ModuleName}
