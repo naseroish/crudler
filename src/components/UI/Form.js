@@ -1,4 +1,4 @@
-import { KeyboardAvoidingView, ScrollView, View, Text, TextInput, StyleSheet } from "react-native";
+import { KeyboardAvoidingView, ScrollView, View, Text, TextInput, StyleSheet, ActivityIndicator } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { ButtonTray, Button } from "../UI/Button.js";
 import Icons from "../UI/Icons.js";
@@ -36,7 +36,7 @@ const InputText = ({ label, value, onChange }) => {
   );
 };
 
-const InputSelect = ({ label, prompt, options, value, onChange }) => {
+const InputSelect = ({ label, prompt, options, value, onChange, isLoading }) => {
   // Initialisations ---------------------------------
   // State -------------------------------------------
   // Handlers ----------------------------------------
@@ -44,21 +44,25 @@ const InputSelect = ({ label, prompt, options, value, onChange }) => {
   return (
     <View style={styles.item}>
       <Text style={styles.itemLabel}>{label}</Text>
-      <Picker
-        mode="dropdown"
-        selectedValue={value}
-        onValueChange={onChange}
-        style={styles.itemPickerStyle}
-      >
-        <Picker.Item
-          value={null}
-          label={prompt}
-          style={styles.itemPickerPromptStyle}
-        />
-        {options.map((option, index) => (
-          <Picker.Item key={index} value={option.value} label={option.label} />
-        ))}
-      </Picker>
+      {isLoading ? (
+        <ActivityIndicator size="large" color="#0000ff" />
+      ) : (
+        <Picker
+          mode="dropdown"
+          selectedValue={value}
+          onValueChange={onChange}
+          style={styles.itemPickerStyle}
+        >
+          <Picker.Item
+            value={null}
+            label={prompt}
+            style={styles.itemPickerPromptStyle}
+          />
+          {options.map((option, index) => (
+            <Picker.Item key={index} value={option.value} label={option.label} />
+          ))}
+        </Picker>
+      )}
     </View>
   );
 };
