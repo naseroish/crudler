@@ -1,10 +1,10 @@
-import { useState, useEffect } from "react";
+
 import { LogBox, StyleSheet, ActivityIndicator } from "react-native";
+import useLoad from "../API/useLoad.js";
 import Screen from "../layout/Screen";
 import ModuleList from "../entity/modules/ModuleList.js";
 import { ButtonTray, Button } from "../UI/Button.js";
 import Icons from "../UI/Icons.js";
-import API from "../API/API.js";
 
 const ModuleListScreen = ({ navigation }) => {
   // Initialisations ---------------------------------
@@ -13,19 +13,9 @@ const ModuleListScreen = ({ navigation }) => {
   ]);
   const modulesEndpoint = "https://softwarehub.uk/unibase/api/modules";
   // State -------------------------------------------
-  const [modules, setModules] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [modules, setModules, isLoading, loadModules] = useLoad(modulesEndpoint);
 
-  const loadModules = async (endpoint) => {
-    const response = await API.get(endpoint);
-    setIsLoading(false);
-    if (response.isSuccess) setModules(response.result);
-    else console.error(response.message);
-  };
 
-  useEffect(() => {
-    loadModules(modulesEndpoint);
-  }, []);
   // Handlers ----------------------------------------
   const handleDelete = (module) =>
     setModules(modules.filter((m) => m.ModuleID !== module.ModuleID));
